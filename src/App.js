@@ -2,14 +2,15 @@ import React, { useRef, useEffect, useState } from "react";
 import { nanoid } from "nanoid";
 import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
-import Todo from "./components/Todo";
+import { Todo } from "./components/Todo"; //replace with line under it
+//import Todo from "./components/Todo";
 //import logo from './logo.svg';
 import "./App.css";
 import { usePrevious } from "./hooks/usePrevious";
 
 const FILTER_MAP = {
   All: () => true,
-  Active: (task) => !task.completed,
+  Active: (task) => true,
   Completed: (task) => task.completed,
 };
 
@@ -48,24 +49,16 @@ function App(props) {
     setTasks(editedTaskList);
   }
 
-  function deleteTask(id) {
-    const remainingTasks = tasks.filter((task) => id !== task.id);
-    setTasks(remainingTasks);
-  }
-
-  const taskList = tasks
-    .filter(FILTER_MAP[filter])
-    .map((task) => (
-      <Todo
-        id={task.id}
-        name={task.name}
-        completed={task.completed}
-        key={task.id}
-        toggleTaskCompleted={toggleTaskCompleted}
-        deleteTask={deleteTask}
-        editTask={editTask}
-      />
-    ));
+  const taskList = tasks.map((task) => (
+    <Todo
+      id={task.id}
+      name={task.name}
+      completed={task.completed}
+      key={task.id}
+      toggleTaskCompleted={toggleTaskCompleted}
+      editTask={editTask}
+    />
+  ));
 
   const filterList = FILTER_NAMES.map((name) => (
     <FilterButton
@@ -80,6 +73,13 @@ function App(props) {
   const headingText = `${taskList.length} ${tasksNoun}`;
 
   const listHeadingRef = useRef(null);
+
+  // useEffect(() => {
+  //   if (tasks.length - prevTaskLength === -1) {
+  //     listHeadingRef.current.focus();
+  //   }
+  // }, [tasks.length, prevTaskLength]);
+
   const prevTaskLength = usePrevious(tasks.length);
 
   useEffect(() => {
@@ -103,24 +103,5 @@ function App(props) {
     </div>
   );
 }
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
 
 export default App;

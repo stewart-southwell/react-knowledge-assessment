@@ -3,7 +3,6 @@ import { nanoid } from "nanoid";
 import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
 import Todo from "./components/Todo";
-import "./App.css";
 import { usePrevious } from "./hooks/usePrevious";
 
 const FILTER_MAP = {

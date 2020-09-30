@@ -46,16 +46,18 @@ function App(props) {
     setTasks(editedTaskList);
   }
 
-  const taskList = tasks.map((task) => (
-    <Todo
-      id={task.id}
-      name={task.name}
-      completed={task.completed}
-      key={task.id}
-      toggleTaskCompleted={toggleTaskCompleted}
-      editTask={editTask}
-    />
-  ));
+  const taskList = tasks
+    .filter(FILTER_MAP[filter])
+    .map((task) => (
+      <Todo
+        id={task.id}
+        name={task.name}
+        completed={task.completed}
+        key={task.id}
+        toggleTaskCompleted={toggleTaskCompleted}
+        editTask={editTask}
+      />
+    ));
 
   const filterList = FILTER_NAMES.map((name) => (
     <FilterButton
@@ -66,7 +68,7 @@ function App(props) {
     />
   ));
 
-  const tasksNoun = taskList.length !== 1 ? "tasks" : "task";
+  const tasksNoun = tasks.length !== 1 ? "tasks" : "task";
   const headingText = `${taskList.length} ${tasksNoun}`;
 
   const listHeadingRef = useRef(null);

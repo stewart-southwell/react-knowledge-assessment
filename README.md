@@ -14,6 +14,8 @@ This project is a simple tasklist application that has the following functional 
 
 The goal of this assessment is to find and fix all the bugs so that the functional spec above is fulfilled.
 
+![TaskList App](./docs/img/TaskList.png)
+
 ### Time Limit
 
 60 Minutes
